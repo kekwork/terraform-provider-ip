@@ -3,9 +3,9 @@ package ip
 import (
 	"context"
 
-	"github.com/Miro-Ecosystem/go-miro/miro"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/rdegges/go-ipify"
 )
 
 func datasourceV4() *schema.Resource {
@@ -22,23 +22,17 @@ func datasourceV4() *schema.Resource {
 }
 
 func resourceBoardRead(ctx context.Context, data *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	c := meta.(*miro.Client)
 	var diags diag.Diagnostics
 
-	board, err := c.Boards.Get(ctx, data.Id())
+	ip, err := ipify.GetIp()
 	if err != nil {
 		return diag.FromErr(err)
 	}
 
-	if board == nil {
-		data.SetId("")
-		return diags
-	}
-
-	if err := data.Set("boards", board); err != nil {
+	if err := data.Set("ip", ip); err != nil {
 		return diag.FromErr(err)
 	}
 
-	data.SetId(board.ID)
+	data.SetId(ip)
 	return diags
 }

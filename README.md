@@ -4,7 +4,7 @@
 
 # Terraform Provider for IP
 
-The Terraform IP is a plugin for Terraform that allows to managed IP resources.   
+The Terraform IP is a plugin for Terraform that allows to manage IP resources.   
 This provider is maintained by [@KeisukeYamashita](https://github.com/KeisukeYamashita).
 
 ## Contributing
